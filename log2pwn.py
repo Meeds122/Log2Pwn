@@ -13,7 +13,7 @@ class Host(object):
         self.vulnerable_ports = list()
         return
     def isOnline(self):
-        if os.system("ping -c 1 {}".format(self.address)) == 0:
+        if os.system("ping -c 1 {} 1> /dev/null".format(self.address)) == 0:
             self.online = True
         else:
             self.online = False
@@ -23,7 +23,7 @@ class Host(object):
 if __name__=="__main__":
     print("[*] This software is licensed under the GPLv3 License.")
     print("[*] It is also only meant for legal testing purposes.")
-    print("[*] Illegal use of this product is strictly prohibited")
+    print("[*] Illegal use of this product is strictly prohibited!")
     print("[*] Authored by: Tristan Henning")
     address = input("[?] Host to attack: ")
     host = Host(address)
