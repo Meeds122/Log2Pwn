@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 
 import os
+import subprocess
 
 class Ports(object):
     blacklist = [20,21,22,23,25,53,67,68,110,123,137,143,445,546,547]
-    known_protocols = [80,443] # HTTP/S for now
+    known_protcols = ["http", "https"]
+    web_protocols = ["http", "https"] # HTTP/S for now
 
 class Host(object):
     def __init__(self, address):
@@ -18,6 +20,16 @@ class Host(object):
         else:
             self.online = False
         return self.online
+    def scanPorts(self):
+        # sets self.open_ports to a list of tuples with (port, "protocol") as entries
+        scan_results = subprocess.check_output(['nmap', '--open', '-p1-65535', '-Pn', self.address]).decode('utf-8')
+        results_list = scan_results.split("\n")
+        for entry in results_list:
+            if(entry.find("open") != -1):
+                protocol = entry.split(" ")[-1]
+                port = entry.split("/")[0]
+                self.open_ports.append((int(port), protocol))
+        return
 
 
 if __name__=="__main__":
@@ -31,3 +43,8 @@ if __name__=="__main__":
         print("[!] Host not responding to ping probe, exiting")
         exit()
     print("[*] Host is online, initiating port scan")
+    host.scanPorts()
+    if(len(host.open_ports) == 0):
+        print("[!] No open ports found, exiting")
+        exit()
+    print("[*] Open ports found, analyzing")
