@@ -1,4 +1,4 @@
 # Log2Pwn
-Easy Log2Shell exploitation
+Easy Log4Shell exploitation
 
 Not even close to functional >:)
