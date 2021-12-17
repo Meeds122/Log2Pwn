@@ -8,6 +8,28 @@ class Ports(object):
     known_protcols = ["http", "https"]
     web_protocols = ["http", "https"] # HTTP/S for now
 
+class Exploit(object):
+    # Testing Exploitability
+    def test(remote_host, local_host, port_proto):
+        if port_proto[1] in Ports.web_protocols:
+            return Exploit.test_web(remote_host, local_host, port_proto)
+        else:
+            return Exploit.test_unkown(remote_host, local_host, port_proto)
+    # Need function to blast Log4j exploit string at a host and wait for a response request
+    def test_unkown(remote_host, local_host, port_proto):
+        # returns true if the call back occurs
+        return
+    # Need function to send HTTP/s requests with Log4j exploit strings at a host and 
+    # wait for a response request
+    def test_web(remote_host, local_host, port_proto):
+        #returns true if the call back occurs
+        return
+    
+    # Raining shells
+    def exploit(remote_host, local_host, port_proto):
+        return
+
+
 class Host(object):
     def __init__(self, address):
         self.address = address
@@ -57,3 +79,8 @@ if __name__=="__main__":
     print("[*] The following ports were found: ")
     for port in host.targeted_ports:
         print("[-] {} {}".format(port[0],port[1]))
+    if input("[?] Attempt to exploit listed ports? [y/n]: ") != "y":
+        exit()
+    local_host = input("[?] Please enter the address of the local host: ")
+    for port in host.targeted_ports:
+        Exploit.test(host.address, local_host, port)

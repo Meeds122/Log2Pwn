@@ -8,7 +8,7 @@ The plan so far is to have this as an easy, automated, log4shell exploiter. It s
             1. SEND EXPLOIT STRING TO CONFIRM EXPLOITABILITY
         3. NOTE port exploitability status
 3. SHOW user list of ports and exploitability statuses
-4. PROMT user for exploit attempt and port
+4. PROMT user to confirm exploit attempt and port
 5. GENERATE reverse shell
 6. CREATE SERVER FOR reverse shell
 7. CREATE reverse shell HANDLER
